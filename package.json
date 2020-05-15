@@ -9,8 +9,17 @@
     "start": "lerna run start"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/connect-redis": "^0.0.13",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.6",
+    "@types/express-session": "^1.17.0",
+    "@types/graphql": "^14.5.0",
+    "@types/ioredis": "^4.16.2",
+    "@types/node": "^14.0.1",
     "lerna": "^3.20.2",
     "prettier": "^2.0.5",
-    "typescript": "^3.8.3"
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.9.2"
   }
 }
