@@ -4,10 +4,17 @@ services:
   postgres:
     container_name: postgres
     image: postgres
-    restart: unless-stopped
     environment:
       POSTGRES_PASSWORD: postgres
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+  
+  redis:
+    container_name: redis
+    image: redis:alpine
+    volumes:
+      - ./redis-data:/var/lib/redis
+    ports:
+      - "6379:6379"
