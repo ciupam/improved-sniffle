@@ -10,11 +10,3 @@ services:
       - ./pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  
-  redis:
-    container_name: redis
-    image: redis:alpine
-    volumes:
-      - ./redis-data:/var/lib/redis
-    ports:
-      - "6379:6379"
