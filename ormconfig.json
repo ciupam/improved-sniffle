@@ -7,6 +7,6 @@
   "password": "postgres",
   "database": "postgres",
   "synchronize": true,
-  "logging": true,
+  "logging": false,
   "entities": ["src/entity/**/*.*"]
 }
