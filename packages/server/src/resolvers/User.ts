@@ -17,6 +17,7 @@ import {
   sendRefreshToken,
   getAccessToken,
 } from "../util/auth";
+import { verify } from "jsonwebtoken";
 
 @ObjectType()
 class LoginResponse {
@@ -32,9 +33,23 @@ export default class {
     return "Hello, World!";
   }
 
-  @Query(() => [User])
-  users() {
-    return User.find();
+  @Query(() => User, { nullable: true })
+  me(@Ctx() context: MyContext) {
+    const authorization = context.req.headers["authorization"];
+
+    if (!authorization) {
+      return null;
+    }
+
+    try {
+      const token = authorization.split(" ")[1];
+      const payload: any = verify(token, process.env.ACCESS_TOKEN_SECRET!);
+      context.payload = payload;
+      return User.findOne(payload.userId);
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
 
   @Mutation(() => Boolean)
