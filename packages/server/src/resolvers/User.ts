@@ -18,11 +18,15 @@ import {
   getAccessToken,
 } from "../util/auth";
 import { verify } from "jsonwebtoken";
+import { ACCESS_TOKEN_SECRET } from "../util/env";
 
 @ObjectType()
 class LoginResponse {
   @Field()
   accessToken: string;
+
+  @Field(() => User)
+  user: User;
 }
 
 @Resolver()
@@ -43,7 +47,7 @@ export default class {
 
     try {
       const token = authorization.split(" ")[1];
-      const payload: any = verify(token, process.env.ACCESS_TOKEN_SECRET!);
+      const payload: any = verify(token, ACCESS_TOKEN_SECRET);
       context.payload = payload;
       return User.findOne(payload.userId);
     } catch (err) {
@@ -93,6 +97,13 @@ export default class {
 
     return {
       accessToken: getAccessToken(user),
+      user,
     };
+  }
+
+  @Mutation(() => Boolean)
+  async logout(@Ctx() { res }: MyContext) {
+    sendRefreshToken(res, "");
+    return true;
   }
 }
