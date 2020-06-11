@@ -1,2 +1,4 @@
-docker stop $(docker ps -q)
-docker-compose up --build -d
+docker stop improved_sniffle_postgres
+docker-compose up -d
+yarn
+yarn start
