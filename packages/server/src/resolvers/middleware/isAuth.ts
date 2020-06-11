@@ -1,6 +1,7 @@
 import { MiddlewareFn } from "type-graphql";
 import MyContext from "../../types/MyContext";
 import { verify } from "jsonwebtoken";
+import { ACCESS_TOKEN_SECRET } from "../../util/env";
 
 const isAuth: MiddlewareFn<MyContext> = ({ context }, next) => {
   const authorization = context.req.headers["authorization"];
@@ -11,7 +12,7 @@ const isAuth: MiddlewareFn<MyContext> = ({ context }, next) => {
 
   try {
     const token = authorization.split(" ")[1];
-    const payload = verify(token, process.env.ACCESS_TOKEN_SECRET!);
+    const payload = verify(token, ACCESS_TOKEN_SECRET);
     context.payload = payload as any;
   } catch (err) {
     console.log(err);
