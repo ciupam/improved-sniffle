@@ -19,7 +19,7 @@ What things you need to run the software:
 
 Run postgre container
 ```
-docker-compose up
+docker-compose up -d
 ```
 
 Install deps
